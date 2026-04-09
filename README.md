@@ -24,14 +24,17 @@
 
 ## The Idea
 
-You read papers, take notes, file them into folders. Six months later you can't remember how anything connects. **Your reading never compounds.**
+Good survey papers don't just list references — they **identify milestones**, trace how ideas evolved, and organize the field into a coherent structure. AutoWiki does the same thing, automatically.
 
-AutoWiki fixes this. Drop a PDF → the LLM compiles a deep analysis page → woven into your knowledge graph → browse it in Obsidian. That's it.
+Drop papers in. The LLM identifies **milestone nodes** (conceptual breakthroughs), clusters papers around them, builds a hierarchical file tree that mirrors the field's structure, and writes deep analysis with temporal links between sources. You get a survey-quality knowledge graph maintained in Obsidian — not a folder of disconnected notes.
 
 ```
-1. Drop    →  Add PDFs to raw/new/
-2. Compile →  LLM reads, analyzes, links, writes wiki
-3. Browse  →  Open Obsidian. Everything's already there.
+ You drop PDFs            LLM compiles                    You browse in Obsidian
+─────────────    ──────────────────────────    ──────────────────────────────────
+ raw/new/    →    Identify milestones          kb/topics/  (milestone nodes)
+                  Cluster papers               kb/sources/ (deep analysis pages)
+                  Trace temporal evolution      kb/journal/ (cognitive timeline)
+                  Write cross-linked wiki       index.md    (survey-style tree)
 ```
 
 ---
