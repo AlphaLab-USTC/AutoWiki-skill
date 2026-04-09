@@ -13,25 +13,20 @@ The human reads and edits the wiki in **Obsidian**. All wiki pages must be valid
 
 ### Wikilink Rules
 
-| Location | Format | Why |
-|----------|--------|-----|
-| Body text, table cells, bullet items | `[[slug]]` | Obsidian renders clickable links |
-| YAML `milestone` field | `"[[slug]]"` (quoted) | Obsidian Properties UI renders as clickable link; must quote to avoid YAML parse error |
-| Other YAML values | bare slug | Obsidian does not parse most YAML values as links |
-| Fenced code blocks | exempt | literal text |
+| Location | Format |
+|----------|--------|
+| Body text, table cells, bullet items | `[[slug]]` |
+| YAML `milestone` field | `"[[slug]]"` (quoted) |
+| Other YAML values | bare slug |
+| Fenced code blocks | exempt |
 
 Use `[[slug]]` wherever a human might want to click through. Obsidian's backlinks panel automatically surfaces reverse links.
 
 ### Properties Conventions
 
-- `domain` field renamed to `tags` — Obsidian renders tags natively with colors and filtering. Every source MUST include:
-  - A `year/YYYY-MM` tag reflecting the paper's publication date (arXiv submission, conference, or journal). Extract from the PDF first page, arXiv metadata, or URL. Example: `year/2025-03`.
-  - A `venue/<name>` tag for the publishing venue (journal or conference). Use short canonical names: `venue/NeurIPS`, `venue/ICML`, `venue/CVPR`, `venue/Nature`, `venue/AAAI`, `venue/ACL`, etc. For preprints not yet accepted, use `venue/arXiv-preprint`. Extract from the PDF header, arXiv metadata, or paper URL.
-- `authors` field added — list of paper authors for attribution and filtering
-- `aliases` field added — Obsidian uses this for search, link auto-complete, and graph display
-- `created` / `last_updated` — Obsidian renders as date picker in Properties UI
-- `raw_path` — points to the **final** local location in `raw/compiled/` (set during Phase 4 of ingest, after PDF is moved from `raw/new/`)
-- `url` — permanent external URL (arXiv abstract, conference page, or DOI link). Always set alongside `raw_path` so both local archive and web reference are preserved
+- `tags` must include: a `year/YYYY-MM` tag (publication date from arXiv/conference/journal) and a `venue/<name>` tag (short canonical: `venue/NeurIPS`, `venue/ICML`, `venue/arXiv-preprint`, etc.)
+- `milestone` in YAML must be quoted wikilink: `"[[slug]]"` (Obsidian Properties UI renders as clickable link)
+- All other YAML conventions are documented in the `paper.md` template itself
 
 ## Architecture
 
@@ -131,55 +126,14 @@ When a subtopic accumulates ≥ 5 papers, it splits out to its own file at `topi
 
 **Tag-to-Parent Promotion:** When 3+ standalone topics share a tag, consider creating a merged parent matching that tag name. If total papers < 5, use merged parent mode (inline subtopics). This is a Confirm-tier operation.
 
-**Classification Fitness Check:**
-
-Before assigning a source to an existing topic, verify:
-1. Does the source's core research question fall within the topic's milestone definition?
-2. Would the source's insights be expected by a reader browsing this topic?
-3. Is the connection direct (same research question) or indirect (shared keyword but different focus)?
-
-If the answer to (3) is "indirect" — the paper belongs elsewhere. Create a new topic rather than force-fitting. A small standalone topic (1–2 papers) is better than a polluted topic with misclassified papers. Shared keywords (e.g., "safety") do NOT imply shared research questions (e.g., "agent safety challenges" ≠ "LLM jailbreak methods").
+**Classification Fitness Check:** Before assigning a source, verify the source's core research question genuinely falls within the topic's milestone definition. Shared keywords (e.g., "safety") do NOT imply shared research questions. If the connection is indirect — create a new standalone topic rather than force-fitting.
 
 ## Page Formats
 
-All pages use structured markdown: YAML frontmatter + fixed section headings. See `references/` directory for exact template formats:
-- `references/source-template/paper.md` — Paper source page template (core wiki fields + CRGP factors + figure references + critical analysis)
+All pages use structured markdown: YAML frontmatter + fixed section headings. See `references/` for exact templates:
+- `references/source-template/paper.md` — Paper source page (includes formatting conventions as comments)
 - `references/topic-template.md` — Milestone topic template
 - `references/journal-template.md` — Journal entry template
-
-### Paper Template: Factors, Figures & Critical Analysis
-
-The `paper.md` template adds three sections beyond the core source template:
-
-**Factors:** Reflects ONLY what the authors claim in their Introduction — not our analysis. Four subsections:
-- **Context**: Research background as stated by authors
-- **Related Work**: Prior work grouped by methodology line, as cited by authors
-- **Gap**: Specific limitations the authors identify
-- **Proposal**: Proposed solution + key insight claimed by authors
-
-**Figures:** The `paper_extract_figures.py` script detects figure captions from the PDF text layer, renders the page region around each figure (capturing vector graphics), and outputs a `figures_manifest.json` with caption text, page number, and image path. The agent reads the manifest (text only) to decide which figures are informative — no need to view every image. Selected figures get a one-line interpretation as a blockquote below the image (for visual separation). Figure numbering does NOT imply a fixed role (e.g., Fig 1 is not always a teaser). Images are stored in `raw/compiled/<topic-path>/<source-slug>_figures/`.
-
-**Critical Analysis:** Replaces the old Key Insights / Strengths & Weaknesses sections. Three subsections, each with contrastive requirements:
-- **Novel Insight**: What we didn't know before — must reference prior wiki understanding and state what changes. Test: "Would a senior researcher cite this in their own paper's motivation?"
-- **Fundamental Limitations**: Limitations of the *approach or research direction*, not the paper's experimental scope. Must identify root cause and cross-reference other affected work. Test: "Would solving this be a publishable contribution?" Anti-patterns: "only tested on X", "no comparison with Y".
-- **Research Frontier**: Concrete next-step problems this paper makes tractable. Must specify prerequisites and closest existing attempts. Test: "Could someone write a paper abstract from this direction?" Anti-pattern: "test on more models/domains".
-
-### Readability Formatting Conventions
-
-All wiki body content (outside YAML frontmatter) follows these formatting rules for Obsidian scannability:
-
-**Structural formatting:**
-- **Bold key labels** in structured entries: `**Insight**:`, `**Limitation**:`, `**Direction**:`, `**property**`
-- **Italic sub-field labels** as nested bullets: `- *Prior*:`, `- *Root cause*:`, `- *Prerequisite*:`
-- **Bold system/paper names** in Related Work lists: `- **GPT-4**: description`
-- **Relations**: single-line format — `- **[[slug]]** (*type*): delta text`
-- **Figure interpretations**: blockquote below the image (`> interpretation`)
-- **Topic Departure entries**: bold prefix — `- **Seeds**: [[slug]]`, `- **Tension with**: [[slug]]`
-
-**Inline content bolding** (the most important rule for readability):
-- Within every content field, **bold the core phrase** that a reader scanning the page should catch. One bold span per sentence or bullet, targeting the key finding, mechanism, or shift — not generic verbs or filler.
-- Applies to: Essence contribution, Factors (Context/Gap/Proposal), Critical Analysis (all sub-fields), Relations delta, Figure interpretations, Transferable Inspirations.
-- Example: `**Insight**: Current optimizers **overwhelmingly default to prompt modifications** rather than structural changes` — the bolded phrase is the scannable takeaway.
 
 ## Operations
 
@@ -201,9 +155,7 @@ When the human adds a new source, think through this checklist:
 5. **For each related wiki page** — What's the delta between this paper and existing wiki knowledge? These deltas feed directly into Critical Analysis: Novel Insight uses them as `prior:` references, Fundamental Limitations cross-references shared problems via `also_affects:`, Research Frontier references closest existing attempts via `closest_attempt:`.
 6. **Assign milestone** — First, apply the **Classification Fitness Check** (see Milestone Hierarchy section): does this source's core research question genuinely match an existing topic's milestone definition? A paper about general LLM jailbreaking does NOT fit an "agent safety" topic just because both involve "safety." If no existing topic is a genuine conceptual match → create a new standalone topic first (Confirm tier, but misclassification is worse than a small new topic). Only after confirming fit (or creating a new topic) set `milestone:` in source YAML.
 7. **Granularity check** — After assignment, count the topic's total sources. If a merged parent's subtopic reaches ≥ 5 papers, flag for split-out (Confirm tier). If a standalone topic reaches > 8, flag for sub-clustering.
-8. **New topic needed?** — New important entity/concept appeared that deserves its own milestone?
-9. **Human cognitive insights?** — Anything the human said worth recording?
-10. **Proactive observations?** — Did this ingest trigger any cross-source synthesis or resolve any Open Questions on existing topics? If yes, dual-write per Proactive Write-back rules.
+8. **Post-assignment checks**: New topic needed? Human cognitive insights to record? Cross-source synthesis triggered? (If yes to any, dual-write per Proactive Write-back rules.)
 
 **Phase 2 — Report to human before compiling:**
 
@@ -334,11 +286,9 @@ Periodically check for:
   - Orphan `_figures/` directory in `raw/compiled/` with no corresponding PDF (interrupted ingest)
   - PDF anywhere under `raw/new/` (including subdirectories) that has a corresponding source page in `kb/` (forgot to move) — use `find raw/new/ -name "*.pdf" -type f` to discover at any depth
   - Source page `raw_path` points to nonexistent file
-  - `_figures/` directory referenced by source page but missing from `raw/compiled/`
   - `![alt](...)` image embed path does not resolve to an existing file (stale path after reorganize)
   - Nested subdirectories inside `raw/new/` (human may have dropped a folder instead of flat files) — flatten or flag
-  - `sources/` and `raw/compiled/` directory trees not mirrored (structural divergence) — run three-tree mirroring verification from Reorganize section
-  - Source `raw_path` uses flat slug instead of full nested path (e.g., `raw/compiled/foo/` when it should be `raw/compiled/a/b/foo/`)
+  - Three-tree mirroring violation (see Architecture > Three-Tree Mirroring Invariant)
 - **Temporal consistency:**
   - Source with ≥1 Relations entry but missing **Temporal context** paragraph at top of ## Relations section
   - Topic with ≥3 integrated sources but missing ## Chronological Evolution section
@@ -373,16 +323,7 @@ The agent autonomously writes to the wiki when valuable observations arise — n
 
 ### Atomic Journal Entry Format
 
-Each proactive write appends one entry to `journal/YYYY-MM.md`:
-
-```
-- [YYYY-MM-DD] <type> | <one-line summary>
-  - trigger: <what triggered this>
-  - pages_modified: [<page-slugs>]
-  - detail: "<what was written and why>"
-```
-
-Types: `insight`, `synthesis`, `lint-fix`, `oq-update`.
+See `references/journal-template.md` for the exact entry format. Types: `insight`, `synthesis`, `lint-fix`, `oq-update`.
 
 ### Decision Boundary: Write or Not?
 

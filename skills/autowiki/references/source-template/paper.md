@@ -16,39 +16,52 @@ aliases:
   - <human-readable paper title>
 ---
 
+<!-- FORMATTING CONVENTIONS (apply to all wiki body content):
+     Structural: **Bold key labels** in structured entries, *italic sub-field labels* as nested bullets.
+     Relations: single-line — "- **[[slug]]** (*type*): delta text"
+     Figure interpretations: blockquote below image (> interpretation)
+     
+     INLINE BOLDING (most important rule):
+     Within every content field, **bold the core phrase** a scanning reader should catch.
+     One bold span per sentence/bullet — target key finding, mechanism, or shift.
+     Applies to: Essence, Factors, Critical Analysis, Relations, Figures, Inspirations. -->
+
 ## Essence
 
 > [!abstract]
 > **One-Sentence Summarization**: ""
-> **contribution**: ""
+> **Contribution**: "" (**bold** the core novelty within the sentence)
 > (Derived from comparison — what specifically is new given the field's prior art?)
 
 ## Factors
 
 <!-- (Author Claims from Introduction)
-     Reflects ONLY what the authors claim in their Introduction — not our analysis. -->
+     Reflects ONLY what the authors claim in their Introduction — not our analysis.
+     FORMATTING: Bold key terms, system names, and technical concepts for scannability. -->
 
 ### Context
-{2-3 sentences on research background as stated by authors}
+{2-3 sentences. **Bold** the core research problem and key technical terms.}
 
 ### Related Work
-{Bullet list of prior work grouped by methodology line, as cited by authors}
+<!-- Bold the system/paper name, then describe. -->
+- **Name**: description
+- **Name**: description
 
 ### Gap
-{2-3 sentences on specific limitations the authors identify}
+{2-3 sentences. **Bold** the specific limitation that motivates this work.}
 
 ### Proposal
-{2-3 sentences on proposed solution + key insight claimed by authors}
+{2-3 sentences. **Bold** the method name and **bold** the key insight/mechanism.}
 
 ## Figures
 
 <!-- Run paper_extract_figures.py first. Read figures_manifest.json to review captions (text),
      then select the most informative figures based on captions and paper content.
      Figure numbering does NOT imply a fixed role (e.g., Fig 1 is not always a teaser).
-     Write a one-line interpretation for each that helps a reader understand the figure at a glance. -->
+     Write a one-line interpretation as a blockquote below the image for visual separation. -->
 
 ![<descriptive-alt>](../../../raw/compiled/<topic-path>/<slug>_figures/figure_<N>.png)
-{One-line interpretation connecting this figure to the paper's core contribution}
+> {One-line interpretation — **bold** the key takeaway from this figure}
 
 > [!note]
 > Figure images live in `raw/compiled/<topic-path>/<slug>_figures/`.
@@ -65,9 +78,9 @@ aliases:
      Anti-pattern: restating the paper's claims. This must be YOUR derived insight
      from comparing this paper against what the wiki already knows. -->
 
-- insight: <what this paper reveals that changes our understanding>
-  prior: <what wiki sources believed before> ([[source-slug]])
-  update: <how our understanding specifically changes>
+- **Insight**: <sentence with **core finding bolded** for scanning>
+  - *Prior*: <what wiki sources believed before> ([[source-slug]])
+  - *Update*: <how understanding changes — **bold the specific shift**>
 
 ### Fundamental Limitations
 <!-- NOT "the paper didn't test enough models." These are limitations of the APPROACH
@@ -77,10 +90,10 @@ aliases:
      — those are reviewer TODOs, not research insights.
      Test: "Would solving this limitation be a publishable contribution?" -->
 
-- limitation: <what's fundamentally hard about this direction>
-  root_cause: <why this is hard, not just what's missing>
-  also_affects: [[source1]], [[source2]]
-  implication: <what this means for the research direction>
+- **Limitation**: <sentence with **core difficulty bolded**>
+  - *Root cause*: <why this is hard — **bold the mechanism**>
+  - *Also affects*: [[source1]], [[source2]]
+  - *Implication*: <consequence — **bold the key takeaway**>
 
 ### Research Frontier
 <!-- Concrete next-step problems that this paper makes tractable or newly visible.
@@ -89,9 +102,9 @@ aliases:
      Anti-pattern: "future work should test on more models/domains."
      Test: "Could someone write a paper abstract starting from this direction?" -->
 
-- direction: <specific research opportunity this paper opens>
-  prerequisite: <what needs to exist first>
-  closest_attempt: [[source]] tried <X> but <gap remains>
+- **Direction**: <sentence with **the opportunity bolded**>
+  - *Prerequisite*: <what needs to exist first>
+  - *Closest attempt*: [[source]] tried <X> but **<gap remains>**
 
 ## Feeds
 
@@ -110,18 +123,11 @@ aliases:
 Include chain notation where applicable: predecessor(date) → **this-paper(date)** → successor(date).
 Note cross-domain origins and cross-topic impact.>
 
-<!-- Relation types:
-     builds_on — directly extends the method/framework
-     extends — applies the approach to a new domain/setting
-     supersedes — achieves better results, making the target obsolete
-     adapts — takes a technique from a different field/domain (cross-domain transfer)
-     contrasts_with — solves the same problem via a fundamentally different approach
-     complements — addresses an orthogonal dimension of the same problem
-     challenges — provides evidence contradicting the target's claims or assumptions -->
+<!-- Relation entries: one line per relation.
+     Bold the target wikilink, italicize the relation type, then describe the delta inline.
+     Types: builds_on, extends, supersedes, adapts, contrasts_with, complements, challenges -->
 
-- target: [[<source-slug>]]
-  type: builds_on | extends | supersedes | adapts | contrasts_with | complements | challenges
-  delta: "<what specifically differs between this paper and the target>"
+- **[[<source-slug>]]** (*builds_on*): <delta — **bold the key difference**>
 
 ## Transferable Inspirations
 
