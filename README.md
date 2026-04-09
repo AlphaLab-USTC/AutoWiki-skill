@@ -7,16 +7,17 @@
 </p>
 
 <p align="center">
-  <a href="https://zy20031230.github.io/AutoWiki-skill/presentation.html"><img src="https://img.shields.io/badge/Demo-Live_Presentation-e8b04a?style=for-the-badge" alt="Demo"></a>
-  <a href="#-quick-start"><img src="https://img.shields.io/badge/Quick_Start-3_steps-blue?style=for-the-badge" alt="Quick Start"></a>
-  <a href="#-showcase-80-paper-wiki"><img src="https://img.shields.io/badge/Showcase-80_Papers-green?style=for-the-badge" alt="Showcase"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"></a>
+  <a href="https://zy20031230.github.io/AutoWiki-skill/presentation.html">
+    <img src="assets/presentation-banner.svg" alt="AutoWiki Design Philosophy — Click to view presentation" width="720">
+  </a>
 </p>
 
 <p align="center">
+  <a href="#-quick-start"><img src="https://img.shields.io/badge/Quick_Start-3_steps-blue?style=for-the-badge" alt="Quick Start"></a>
+  <a href="#-showcase-80-paper-wiki"><img src="https://img.shields.io/badge/Showcase-80_Papers-green?style=for-the-badge" alt="Showcase"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"></a>
   <img src="https://img.shields.io/badge/LLM-Claude_Code-blueviolet?logo=anthropic&logoColor=white" alt="Claude Code">
   <img src="https://img.shields.io/badge/IDE-Obsidian-7c3aed?logo=obsidian&logoColor=white" alt="Obsidian">
-  <img src="https://img.shields.io/badge/format-Markdown-orange" alt="Markdown">
 </p>
 
 ---
