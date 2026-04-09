@@ -120,17 +120,12 @@ git clone https://github.com/zhangyi/autowiki-skill.git
 # Register as a Claude Code plugin (see .claude-plugin/)
 
 # 2. Initialize wiki structure (in your project directory)
-mkdir -p raw/new raw/compiled kb/{sources,topics,journal,_templates} output
+mkdir -p raw/new raw/compiled kb/{sources,topics,journal} output
 
-# 3. Copy templates
-cp autowiki-skill/skills/autowiki/references/source-template/paper.md kb/_templates/
-cp autowiki-skill/skills/autowiki/references/topic-template.md kb/_templates/
-cp autowiki-skill/skills/autowiki/references/journal-template.md kb/_templates/
-
-# 4. Create entry-point files
+# 3. Create entry-point files
 touch kb/index.md kb/log.md
 
-# 5. Open in Obsidian
+# 4. Open in Obsidian
 # Point Obsidian at your project root as a vault
 ```
 
@@ -215,9 +210,8 @@ project-root/                    # Also your Obsidian vault
 │   │       └── paper-name.md
 │   ├── topics/                  # Milestone nodes — conceptual breakthroughs
 │   │   └── topic-name.md
-│   ├── journal/                 # Cognitive change timeline + audit trail
-│   │   └── YYYY-MM.md
-│   └── _templates/              # Page templates (reference only)
+│   └── journal/                 # Cognitive change timeline + audit trail
+│       └── YYYY-MM.md
 │
 └── skills/
     └── autowiki/
