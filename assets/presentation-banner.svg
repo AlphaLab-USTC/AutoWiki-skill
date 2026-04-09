@@ -55,7 +55,7 @@
 
   <!-- Subtitle -->
   <text x="480" y="162" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#8a8780">
-    Your LLM Compiles a Knowledge Base. You Just Read It.
+    Your LLM Compiles a Knowledge Base. You Just Read and Ask.
   </text>
 
   <!-- Flow: Drop → Compile → Browse -->

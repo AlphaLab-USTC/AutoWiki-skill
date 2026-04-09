@@ -1,7 +1,7 @@
 <h1 align="center">AutoWiki</h1>
 
 <p align="center">
-  <strong>Your LLM Compiles a Knowledge Base. You Just Read It.</strong><br>
+  <strong>Your LLM Compiles a Knowledge Base. You Just Read and Ask.</strong><br>
   <sub>Implementing <a href="https://x.com/karpathy/status/1911101737498091651">Karpathy's LLM Knowledge Base</a> vision — raw sources in, Obsidian wiki out.</sub><br>
   <sub>By <a href="https://github.com/AlphaLab-USTC">AlphaLab-USTC</a></sub>
 </p>
