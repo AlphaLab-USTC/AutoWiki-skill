@@ -56,37 +56,11 @@ pip install PyMuPDF
 
 ### 2. Add as Skill
 
-<details>
-<summary><b>Claude Code</b></summary>
+In **Claude Code** or **OpenClaw**, just ask:
 
-Add the skill source to your **global** settings (`~/.claude/settings.json`):
-
-```json
-{
-  "skillSources": [
-    "/absolute/path/to/AutoWiki-skill/skills"
-  ]
-}
 ```
-
-Or add to a **project-level** config (`.claude/settings.local.json`) to scope it to a single project.
-
-</details>
-
-<details>
-<summary><b>OpenClaw</b></summary>
-
-Add the skill source to your settings file (`~/.openclaw/settings.json`):
-
-```json
-{
-  "skillSources": [
-    "/absolute/path/to/AutoWiki-skill/skills"
-  ]
-}
+> "Add /absolute/path/to/AutoWiki-skill/skills to my global skillSources"
 ```
-
-</details>
 
 ### 3. Initialize Your Wiki
 
@@ -141,7 +115,7 @@ Three operations: **Ingest** (PDF → analysis page), **Query** (ask questions �
 
 ## 📂 Showcase: 80-Paper Wiki
 
-We built a real wiki on **Agent Self-Evolution** — 80 papers, 13 milestones, 2 days. Here's what the LLM compiled:
+We built a real wiki on **Agent Self-Evolution** — 80 papers, 13 milestones, 2 hours. Here's what the LLM compiled (compiling 80 papers in Claude Code with Opus 4.6 cost ~150 🔪 of quota):
 
 <p align="center">
   <img src="assets/wiki_graph.png" alt="Wiki Knowledge Graph — 80 papers interconnected across 13 milestones" width="800">

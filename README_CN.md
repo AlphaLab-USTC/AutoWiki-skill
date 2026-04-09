@@ -97,7 +97,7 @@ raw/new/  ──→  LLM (Claude Code)  ──→  kb/  ──→  Obsidian
 
 ## 📂 实战展示：80 篇论文的 Wiki
 
-我们用 **Agent Self-Evolution** 方向做了一个真实 wiki — 80 篇论文，13 个里程碑，耗时 2 天。以下是 LLM 编译的成果：
+我们用 **Agent Self-Evolution** 方向做了一个真实 wiki — 80 篇论文，13 个里程碑，耗时 2 小时。以下是 LLM 编译的成果（在 Claude Code 中使用 Opus 4.6 编译 80 篇论文消耗约 150 🔪 额度）：
 
 <p align="center">
   <img src="assets/wiki_graph.png" alt="Wiki 知识图谱 — 80 篇论文跨 13 个里程碑互联" width="800">
